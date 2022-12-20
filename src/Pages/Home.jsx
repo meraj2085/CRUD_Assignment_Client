@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 
-const Home = ({toggle, setToggle}) => {
+const Home = ({ toggle, setToggle }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -8,6 +9,19 @@ const Home = ({toggle, setToggle}) => {
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, [toggle]);
+
+  const handleDelete = (id) => {
+    fetch(`http://localhost:5000/users/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          setToggle(!toggle)
+          toast.error("User delete successful!");
+        }
+      });
+  };
 
   return (
     <div className="max-w-4xl mx-auto my-20">
@@ -52,6 +66,7 @@ const Home = ({toggle, setToggle}) => {
                 </td>
                 <td>
                   <button
+                    onClick={() => handleDelete(user?._id)}
                     type="button"
                     className="text-white bg-[#e76f51] font-medium rounded-lg text-sm px-3 py-[5px] text-center inline-flex items-center"
                   >
