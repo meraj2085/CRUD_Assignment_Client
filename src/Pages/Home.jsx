@@ -8,14 +8,14 @@ const Home = ({ toggle, setToggle }) => {
 
   // Get all users
   useEffect(() => {
-    fetch("http://localhost:5000/users")
+    fetch("https://assignment-crud-server.vercel.app/users")
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, [toggle]);
 
   // Delete user
   const handleDelete = (id) => {
-    fetch(`http://localhost:5000/users/${id}`, {
+    fetch(`https://assignment-crud-server.vercel.app/users/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

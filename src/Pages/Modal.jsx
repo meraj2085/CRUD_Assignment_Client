@@ -13,7 +13,7 @@ const Modal = ({ setToggle, toggle, setClose }) => {
     const email = form.email.value;
     const user = { name, email };
 
-    fetch("http://localhost:5000/user", {
+    fetch("https://assignment-crud-server.vercel.app/user", {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -26,7 +26,7 @@ const Modal = ({ setToggle, toggle, setClose }) => {
           setToggle(!toggle);
           setLoading(false);
           toast.success("User added successfully!");
-          setClose(true)
+          setClose(true);
         }
       });
   };

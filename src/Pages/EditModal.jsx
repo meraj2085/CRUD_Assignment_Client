@@ -13,7 +13,7 @@ const EditModal = ({ editUser, setEditUser, toggle, setToggle }) => {
     const email = form.email.value;
     const updatedUser = { name, email };
 
-    fetch(`http://localhost:5000/users/${editUser?._id}`, {
+    fetch(`https://assignment-crud-server.vercel.app/users/${editUser?._id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -26,7 +26,7 @@ const EditModal = ({ editUser, setEditUser, toggle, setToggle }) => {
           toast.success("User updated successfully");
           setLoading(false);
           setToggle(!toggle);
-          setEditUser(null)
+          setEditUser(null);
         }
       });
   };
