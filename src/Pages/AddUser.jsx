@@ -1,8 +1,9 @@
 import React from "react";
 
-const AddUser = () => {
+const AddUser = ({ setClose }) => {
   return (
     <label
+      onClick={() => setClose(false)}
       htmlFor="addUser_modal"
       className="fixed bottom-10 right-12 z-[999] cursor-pointer text-gray-800 text-4xl bg-[#bbd0ff] w-14 h-14 flex items-center justify-center rounded-full animate-bounce"
     >
