@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import EditModal from "./EditModal";
 
 const Home = ({ toggle, setToggle }) => {
   const [users, setUsers] = useState([]);
+  const [editUser, setEditUser] = useState(null);
 
+  // Get all users
   useEffect(() => {
     fetch("http://localhost:5000/users")
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, [toggle]);
 
+  // Delete user
   const handleDelete = (id) => {
     fetch(`http://localhost:5000/users/${id}`, {
       method: "DELETE",
@@ -17,7 +21,7 @@ const Home = ({ toggle, setToggle }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
-          setToggle(!toggle)
+          setToggle(!toggle);
           toast.error("User delete successful!");
         }
       });
@@ -32,8 +36,8 @@ const Home = ({ toggle, setToggle }) => {
               <th></th>
               <th>Name</th>
               <th>Email</th>
-              <th>Edit</th>
-              <th>Delete</th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -43,7 +47,9 @@ const Home = ({ toggle, setToggle }) => {
                 <td>{user?.name}</td>
                 <td>{user?.email}</td>
                 <td>
-                  <button
+                  <label
+                    onClick={() => setEditUser(user)}
+                    htmlFor="edit_modal"
                     type="button"
                     className="text-gray-600 bg-[#fefae0] font-medium rounded-lg text-sm px-4 py-1.5 text-center inline-flex items-center"
                   >
@@ -62,7 +68,7 @@ const Home = ({ toggle, setToggle }) => {
                       />
                     </svg>
                     <span className="ml-1">Edit</span>
-                  </button>
+                  </label>
                 </td>
                 <td>
                   <button
@@ -93,6 +99,14 @@ const Home = ({ toggle, setToggle }) => {
           </tbody>
         </table>
       </div>
+      {editUser && (
+        <EditModal
+          editUser={editUser}
+          setEditUser={setEditUser}
+          toggle={toggle}
+          setToggle={setToggle}
+        ></EditModal>
+      )}
     </div>
   );
 };
