@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 
 const Home = () => {
-  const [users, setUsers] = useState(null);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:5000/users")
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, []);
+
+  console.log(users);
 
   return (
     <div className="max-w-4xl mx-auto my-20">
